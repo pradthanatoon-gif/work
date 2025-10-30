@@ -1,0 +1,25 @@
+name: Auto Run Python Every Morning
+
+on:
+  schedule:
+    - cron: "0 1 * * *"  # 8 โมงเช้า (เวลาไทย)
+  workflow_dispatch:
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies
+        run: |
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+      - name: Run test.py
+        run: python test.py
+
