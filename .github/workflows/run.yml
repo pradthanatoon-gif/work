@@ -2,15 +2,14 @@ name: Auto Run Python Every Morning
 
 on:
   schedule:
-    - cron: "0 1 * * *"  # รันทุกวันเวลา 8 โมงเช้า (1:00 UTC)
-  workflow_dispatch:      # เผื่ออยากกดรันเองด้วย
+    - cron: "0 1 * * *"  # 8 โมงเช้า (เวลาไทย)
+  workflow_dispatch:
 
 jobs:
   run:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -21,5 +20,6 @@ jobs:
         run: |
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-      - name: Run your Python script
+      - name: Run test.py
         run: python test.py
+
